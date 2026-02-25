@@ -1,11 +1,17 @@
+jwt:
+  secret: ${JWT_SECRET}
+  expire: ${JWT_EXPIRE}
+
+
+
 spring:
   application:
     name: spring04
   mail:
     host: smtp.gmail.com
     port: 587
-    username: lhk981112@gmail.com
-    password: fdazzkickmyyyfoe
+    username: ${MAIL_ADDR}
+    password: ${MAIL_PASS}
     properties:
       mail:
         smtp:
@@ -16,9 +22,9 @@ spring:
           timeout: 5000
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: "jdbc:mariadb://10.10.10.135:3306/practice1"
-    username: root
-    password: qwer1234
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
 
   jpa:
     database-platform: org.hibernate.dialect.MariaDBDialect
