@@ -4,8 +4,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ddarahakit2026@gmail.com
-    password: vvxecvdyhyryhtpt
+    username: lhk981112@gmail.com
+    password: fdazzkickmyyyfoe
     properties:
       mail:
         smtp:
@@ -16,7 +16,7 @@ spring:
           timeout: 5000
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: "jdbc:mariadb://10.10.10.30:3306/test"
+    url: "jdbc:mariadb://10.10.10.135:3306/practice1"
     username: root
     password: qwer1234
 
