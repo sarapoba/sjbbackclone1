@@ -37,11 +37,13 @@ public class BoardDto {
     public static class ListRes {
         private Long idx;
         private String title;
+        private String writer;
 
         public static ListRes from(Board entity) {
             return ListRes.builder()
                     .idx(entity.getIdx())
                     .title(entity.getTitle())
+                    .writer(entity.getUser().getName())
                     .build();
         }
     }
@@ -52,12 +54,14 @@ public class BoardDto {
         private Long idx;
         private String title;
         private String contents;
+        private String writer;
 
         public static ReadRes from(Board entity) {
             return ReadRes.builder()
                     .idx(entity.getIdx())
                     .title(entity.getTitle())
                     .contents(entity.getContents())
+                    .writer(entity.getUser().getName())
                     .build();
         }
     }
