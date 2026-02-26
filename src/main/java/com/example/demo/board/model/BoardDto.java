@@ -1,6 +1,9 @@
 package com.example.demo.board.model;
 
+import com.example.demo.reply.model.ReplyDto;
 import lombok.*;
+
+import java.util.List;
 
 public class BoardDto {
     @Getter
@@ -55,6 +58,7 @@ public class BoardDto {
         private String title;
         private String contents;
         private String writer;
+        private List<ReplyDto.ReplyRes> replyList;
 
         public static ReadRes from(Board entity) {
             return ReadRes.builder()
@@ -62,6 +66,7 @@ public class BoardDto {
                     .title(entity.getTitle())
                     .contents(entity.getContents())
                     .writer(entity.getUser().getName())
+                    .replyList(entity.getReplyList().stream().map(ReplyDto.ReplyRes::from).toList())
                     .build();
         }
     }
