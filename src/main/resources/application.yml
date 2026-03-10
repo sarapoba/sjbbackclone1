@@ -6,7 +6,7 @@ jwt:
 
 spring:
   application:
-    name: spring04
+    name: demo
   mail:
     host: smtp.gmail.com
     port: 587

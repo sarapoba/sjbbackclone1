@@ -1,6 +1,8 @@
 package com.example.demo.relation.service;
 
+import com.example.demo.relation.model.A;
 import com.example.demo.relation.model.B;
+import com.example.demo.relation.model.BDto;
 import com.example.demo.relation.repository.BRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,5 +41,12 @@ public class BService {
         }
 
         System.out.println("");
+    }
+
+    public BDto.BRes reg(Long aIdx, BDto.BReq dto) {
+        B b = dto.toEntity(aIdx);
+        bRepository.save(b);
+
+        return BDto.BRes.from(b);
     }
 }
