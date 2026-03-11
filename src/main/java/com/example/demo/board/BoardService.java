@@ -1,6 +1,7 @@
 package com.example.demo.board;
 
 import com.example.demo.board.model.Board;
+import com.example.demo.user.model.AuthUserDetails;
 import lombok.RequiredArgsConstructor;
 import com.example.demo.board.model.BoardDto;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,9 @@ import java.util.List;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public BoardDto.RegRes register(BoardDto.RegReq dto) {
-        Board entity = boardRepository.save(dto.toEntity());
+    public BoardDto.RegRes register(AuthUserDetails user, BoardDto.RegReq dto) {
+
+        Board entity = boardRepository.save(dto.toEntity(user));
 
         return BoardDto.RegRes.from(entity);
     }
