@@ -1,5 +1,6 @@
 package com.example.demo.upload;
 
+import com.example.demo.board.model.BoardDto;
 import com.example.demo.common.model.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,5 +27,15 @@ public class UploadController {
     public ResponseEntity upload(List<MultipartFile> images){
         List<String> result = uploadService.upload(images);
         return ResponseEntity.ok(BaseResponse.success(result));
+    }
+
+    @PostMapping("/imageWithDto")
+    public ResponseEntity upload(
+            @RequestPart BoardDto.RegReq dto,
+            @RequestPart List<MultipartFile> images
+    ){
+        System.out.println(dto.getTitle());
+        System.out.println(images.get(0).getOriginalFilename());
+        return ResponseEntity.ok("");
     }
 }
