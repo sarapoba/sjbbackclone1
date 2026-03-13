@@ -1,5 +1,6 @@
 package com.example.demo.user.model;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,8 +8,12 @@ public class UserDto {
 
     @Getter
     public static class SignupReq {
+        @Pattern(message = "이메일 형식이 아닙니다."
+                , regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
         private String email;
         private String name;
+        @Pattern(message = "비밀번호는 8~20자여야 하며, 영문, 숫자, 특수문자를 최소 하나씩 포함해야 합니다."
+                , regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$")
         private String password;
 
         public User toEntity() {
@@ -17,7 +22,7 @@ public class UserDto {
                     .name(this.name)
                     .password(this.password)
                     .enable(false)
-                    .role("ROLE_USER")
+//                    .role("ROLE_USER")  //    User 엔티티의 도메인 무결성 제약조건으로 처리
                     .build();
         }
     }

@@ -3,6 +3,7 @@ package com.example.demo.user;
 import com.example.demo.user.model.AuthUserDetails;
 import com.example.demo.user.model.UserDto;
 import com.example.demo.utils.JwtUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class UserController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/signup")
-    public ResponseEntity signup(@RequestBody UserDto.SignupReq dto) {
+    public ResponseEntity signup(@Valid @RequestBody UserDto.SignupReq dto) {
         UserDto.SignupRes result =  userService.signup(dto);
 
         return ResponseEntity.ok(result);
