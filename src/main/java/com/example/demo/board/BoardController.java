@@ -2,6 +2,8 @@ package com.example.demo.board;
 
 import com.example.demo.common.model.BaseResponse;
 import com.example.demo.user.model.AuthUserDetails;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import com.example.demo.board.model.BoardDto;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,11 @@ import java.util.List;
 @RequestMapping("/board")
 @RestController
 @RequiredArgsConstructor
+@Tag(name="게시판 기능")
 public class BoardController {
     private final BoardService boardService;
 
+    @Operation(summary = "게시글 등록", description = "제목, 내용을 입력해서 게시글을 작성하는 기능")
     @PostMapping("/reg")
     public ResponseEntity register(
             @AuthenticationPrincipal AuthUserDetails user,
