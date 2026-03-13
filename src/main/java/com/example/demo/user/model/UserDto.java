@@ -11,7 +11,10 @@ public class UserDto {
         @Pattern(message = "이메일 형식이 아닙니다."
                 , regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
         private String email;
+        //  한글만 가능하게 설정
+        @Pattern(message = "이름은 한글로 된 완성된 글자 2~10자여야 합니다.", regexp = "^[가-힣]{2,10}$")
         private String name;
+
         @Pattern(message = "비밀번호는 8~20자여야 하며, 영문, 숫자, 특수문자를 최소 하나씩 포함해야 합니다."
                 , regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$")
         private String password;
