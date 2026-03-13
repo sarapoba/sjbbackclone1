@@ -17,7 +17,7 @@ public class UserDto {
                     .name(this.name)
                     .password(this.password)
                     .enable(false)
-                    .role("ROLE_USER")
+//                    .role("ROLE_USER")  //    User 엔티티의 도메인 무결성 제약조건으로 처리
                     .build();
         }
     }
