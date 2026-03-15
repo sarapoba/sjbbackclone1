@@ -22,13 +22,17 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         System.out.println("서비스 코드 실행");
 
+        //  소셜로그인 했을 때 무엇을 가지고 했나 받아오기 ex) kakao, google
+        String provider = userRequest
+                .getClientRegistration().getRegistrationId();
+
         //  OAuth2 로그인 실행
         //  카카오에서 이걸 실행 했을 때 로그인 실패했으면 애초에 이 로직을 안 타짐
         //  OAuth2User가 받아와졌다는 것은 로그인에 성공했다는 것
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
         //  내 서비스의 DTO로 변환
-        UserDto.OAuth dto = UserDto.OAuth.from(oAuth2User.getAttributes(),  "kakao");
+        UserDto.OAuth dto = UserDto.OAuth.from(oAuth2User.getAttributes(), provider);
 
         //  DB에 회원이 있나 없나 확인
         Optional<User> result = userRepository.findByEmail(dto.getEmail());

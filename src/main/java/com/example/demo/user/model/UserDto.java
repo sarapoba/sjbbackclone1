@@ -16,17 +16,20 @@ public class UserDto {
         private boolean enable;
         private String role;
 
-
         public static OAuth from(Map<String, Object> attributes, String provider){
-            String providerId = ((Long) attributes.get("id")).toString();
-            System.out.println(providerId);
+            String email = null;
+            String name = null;
 
 
-            //  if(provider.equals("kakao)) 카카오면 이 작업을 하고 아니면 다른 것하게?
-            String email = providerId + "@kakao.social";
-            Map properties = (Map) attributes.get("properties");
-            String name = (String) properties.get("nickname");
-
+            if(provider.equals("kakao")) {//  카카오면 이 작업을 하고 아니면 다른 것하게?
+                String providerId = ((Long) attributes.get("id")).toString();
+                email = providerId + "@kakao.social";
+                Map properties = (Map) attributes.get("properties");
+                name = (String) properties.get("nickname");
+            } else if(provider.equals("google")){   //  google로 로그인
+                email = (String)attributes.get("email");
+                name = (String)attributes.get("name");
+            }
 
             return OAuth.builder()
                     .email(email)
