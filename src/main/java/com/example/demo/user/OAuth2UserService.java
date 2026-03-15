@@ -2,6 +2,7 @@ package com.example.demo.user;
 
 import com.example.demo.user.model.AuthUserDetails;
 import com.example.demo.user.model.User;
+import com.example.demo.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -26,30 +27,16 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         //  OAuth2User가 받아와졌다는 것은 로그인에 성공했다는 것
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        //  (밑부터 쭉) 이 작업 필터가 성공 로직
-        Map<String, Object> attributes = oAuth2User.getAttributes();
-        String providerId = ((Long)attributes.get("id")).toString();
-        System.out.println(providerId);
-
-        String email = providerId + "@kakao.social";
-        Map properties = (Map) attributes.get("properties");
-        String name = (String) properties.get("nickname");
+        //  내 서비스의 DTO로 변환
+        UserDto.OAuth dto = UserDto.OAuth.from(oAuth2User.getAttributes(),  "kakao");
 
         //  DB에 회원이 있나 없나 확인
-        Optional<User> result = userRepository.findByEmail(email);
+        Optional<User> result = userRepository.findByEmail(dto.getEmail());
 
         //  없으면 가입 시켜주기
-        User user = null;
+
         if(!result.isPresent()) {
-            userRepository.save(
-                    User.builder()
-                            .email(email)
-                            .name(name)
-                            .password("kakao")
-                            .enable(true)
-                            .role("ROLE_USER")
-                            .build()
-            );
+            User user = userRepository.save(dto.toEntity());
 
             //  회원가입이 되어있든 안 되어있든 AuthUserDetails로 반환 그러면
             //  OAuth2AuthenticationSuccessHandler의 성공 로직을 타게된다.
@@ -59,8 +46,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         }
         //  있으면 해당 사용자 반환
         else {
-            user = result.get();
-
+           User user = result.get();
             return AuthUserDetails.from(user);
         }
     }
