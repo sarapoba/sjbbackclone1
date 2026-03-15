@@ -1,6 +1,6 @@
 package com.example.demo.user.model;
 
-import aQute.bnd.annotation.licenses.CPL_1_0;
+
 import com.example.demo.board.model.Board;
 import com.example.demo.likes.model.Likes;
 import com.example.demo.reply.model.Reply;
