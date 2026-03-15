@@ -5,6 +5,8 @@ jwt:
 project:
   upload:
     path: ${UPLOAD_PATH}
+  aes:
+    key: aessecretkey01234567890123456789
 
 spring:
   security:
