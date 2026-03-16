@@ -1,0 +1,19 @@
+vi /etc/rsyslog.conf
+	# provides UDP syslog reception
+	module(load="imudp")				주석 해제
+	input(type="imudp" port="514")		주석 해제
+
+	# provides TCP syslog reception
+	module(load="imtcp")				주석 해제
+	input(type="imtcp" port="514")		주석 해제
+
+
+
+vi /etc/rsyslog.d/50-default.conf
+	user.*    /var/log/spring-application.log	마지막 줄에 추가
+
+
+touch  /var/log/spring-application.log
+chmod 777 /var/log/spring-application.log
+
+systemctl restart rsyslog

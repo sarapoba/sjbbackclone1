@@ -50,7 +50,8 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         }
         //  있으면 해당 사용자 반환
         else {
-           User user = result.get();
+            User user = result.get();
+
             return AuthUserDetails.from(user);
         }
     }
