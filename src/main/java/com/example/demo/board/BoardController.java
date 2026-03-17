@@ -20,14 +20,6 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
 
-    @Operation(summary = "게시글 등록", description = "제목, 내용을 입력해서 게시글을 작성하는 기능")
-    @PostMapping("/reg")
-    public ResponseEntity register(
-            @AuthenticationPrincipal AuthUserDetails user,
-            @RequestBody BoardDto.RegReq dto) {
-        BoardDto.RegRes result = boardService.register(user, dto);
-        return ResponseEntity.ok(BaseResponse.success(result));
-    }
 
     //  컨트롤러에 내가 보고 싶은 페이지 번호와 한 페이지당 몇 개씩 보고 싶다하다하는 정보를 전달해야 함
     @GetMapping("/list")
@@ -44,16 +36,5 @@ public class BoardController {
         return ResponseEntity.ok(BaseResponse.success(dto));
     }
 
-    @PutMapping("/update/{idx}")
-    public ResponseEntity update(@PathVariable Long idx, @RequestBody BoardDto.RegReq dto) {
-        BoardDto.RegRes returnDto = boardService.update(idx, dto);
-        return ResponseEntity.ok(BaseResponse.success(returnDto));
-    }
-
-    @DeleteMapping("/delete/{idx}")
-    public ResponseEntity update(@PathVariable Long idx) {
-        boardService.delete(idx);
-        return ResponseEntity.ok(BaseResponse.success("성공"));
-    }
 }
 

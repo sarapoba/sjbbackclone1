@@ -15,12 +15,6 @@ import java.util.List;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public BoardDto.RegRes register(AuthUserDetails user, BoardDto.RegReq dto) {
-
-        Board entity = boardRepository.save(dto.toEntity(user));
-
-        return BoardDto.RegRes.from(entity);
-    }
 
     public BoardDto.PageRes list(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);    // Pageable 객체를 전달해주면 페이징 처리를 해줌
@@ -37,16 +31,4 @@ public class BoardService {
         return BoardDto.ReadRes.from(board);
     }
 
-    public BoardDto.RegRes update(Long idx, BoardDto.RegReq dto) {
-        Board board = boardRepository.findById(idx).orElseThrow();
-        board.update(dto);
-
-        boardRepository.save(board);
-
-        return BoardDto.RegRes.from(board);
-    }
-
-    public void delete(Long idx) {
-        boardRepository.deleteById(idx);
-    }
 }
