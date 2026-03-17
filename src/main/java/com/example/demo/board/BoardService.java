@@ -7,6 +7,7 @@ import com.example.demo.board.model.BoardDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class BoardService {
         return BoardDto.ReadRes.from(board);
     }
 
+    @Transactional
     public BoardDto.RegRes update(Long idx, BoardDto.RegReq dto) {
         Board board = boardRepository.findById(idx).orElseThrow();
         board.update(dto);
